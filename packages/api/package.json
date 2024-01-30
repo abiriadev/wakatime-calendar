@@ -2,6 +2,8 @@
 	"name": "@repo/api",
 	"version": "0.0.0",
 	"private": true,
+	"main": "./src/fetch.ts",
+	"types": "./src/fetch.ts",
 	"scripts": {
 		"lint": "eslint . --max-warnings 0"
 	},
