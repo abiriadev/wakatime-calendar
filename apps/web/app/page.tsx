@@ -3,6 +3,8 @@ import ActivityCalendar from 'react-activity-calendar'
 import { fetchData } from '@repo/api'
 
 export default async function Page() {
+	console.log(process.env.WAKATIME)
+
 	const data = await fetchData(
 		process.env.WAKATIME!,
 		new Date('2023-01-01'),
@@ -14,7 +16,7 @@ export default async function Page() {
 			<ActivityCalendar
 				data={data.map(({ date, lang }) => ({
 					date,
-					level: lang?.length ?? 0,
+					level: (lang?.length ?? 0) % 5,
 					count: 1,
 				}))}
 			/>

@@ -23,15 +23,19 @@ export const fetchData = async (
 ): Promise<Array<DayStatistics>> =>
 	ky
 		.get(
-			'http://wakatime.com/api/v1/users/current/summaries',
+			'https://wakatime.com/api/v1/users/current/summaries',
 			{
 				searchParams: {
-					start: start.toString(),
-					end: end.toString(),
+					start: start
+						.toISOString()
+						.split('T')[0]!,
+					end: end.toISOString().split('T')[0]!,
 				},
 				headers: {
-					Authorization: `Basic ${btoa(key)}`,
+					Authorization: `Basic ${btoa(key + ':')}`,
+					// Authorization: `Basic d2FrYV9hZjZkN2ZiNS0xOWVlLTRlZDctODk4ZS01MTFhMDk4MjljYjk6`,
 				},
+				timeout: false,
 			},
 		)
 		.json<RawData>()
