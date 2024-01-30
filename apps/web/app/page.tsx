@@ -11,7 +11,13 @@ export default async function Page() {
 
 	return (
 		<main>
-			<ActivityCalendar data={[]} />
+			<ActivityCalendar
+				data={data.map(({ date, lang }) => ({
+					date,
+					level: lang?.length ?? 0,
+					count: 1,
+				}))}
+			/>
 		</main>
 	)
 }
