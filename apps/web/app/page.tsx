@@ -1,3 +1,9 @@
+import ActivityCalendar from 'react-activity-calendar'
+
 export default function Page(): JSX.Element {
-	return <main></main>
+	return (
+		<main>
+			<ActivityCalendar data={[]} />
+		</main>
+	)
 }
