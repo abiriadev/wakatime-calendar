@@ -17,7 +17,6 @@ export interface RawData {
 
 export interface DayStatistics {
 	date: string
-	topLang: string | null
 	langs: Array<{
 		name: string
 		total_seconds: number
@@ -49,6 +48,5 @@ export const fetchData = async (
 			.json<RawData>()
 	).data.map(({ languages, range: { date } }) => ({
 		date,
-		topLang: languages[0]?.name ?? null,
 		langs: languages,
 	}))
