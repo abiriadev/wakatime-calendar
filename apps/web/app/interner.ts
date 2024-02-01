@@ -10,6 +10,12 @@ export class Interner {
 		this.#values.push(value)
 	}
 
+	bulkInsert(kvset: Record<string, string>) {
+		Object.entries(kvset).forEach(([k, v]) =>
+			this.insert(k, v),
+		)
+	}
+
 	lookup(key: string) {
 		return this.#hash.get(key) ?? null
 	}
