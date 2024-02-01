@@ -4,6 +4,8 @@ export interface RawData {
 	data: Array<{
 		languages: Array<{
 			name: string
+			total_seconds: number
+			percent: number
 		}>
 		range: {
 			date: string
@@ -13,7 +15,12 @@ export interface RawData {
 
 export interface DayStatistics {
 	date: string
-	lang: string | null
+	topLang: string | null
+	langs: Array<{
+		name: string
+		total_seconds: number
+		percent: number
+	}>
 }
 
 export const fetchData = async (
