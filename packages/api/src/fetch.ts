@@ -40,7 +40,6 @@ export const fetchData = async (
 				},
 				headers: {
 					Authorization: `Basic ${btoa(key + ':')}`,
-					// Authorization: `Basic d2FrYV9hZjZkN2ZiNS0xOWVlLTRlZDctODk4ZS01MTFhMDk4MjljYjk6`,
 				},
 				timeout: false,
 			},
