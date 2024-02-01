@@ -15,11 +15,22 @@ export default async function Page() {
 	const interner = new Interner()
 
 	interner.bulkInsert(
-		(await (
-			await fetch(
-				'https://github.com/abiriadev/wakatime-colors/raw/main/colors.json',
-			)
-		).json()) as Record<string, string>,
+		(
+			(await (
+				await fetch(
+					'https://github.com/abiriadev/wakatime-colors/raw/main/colors.json',
+				)
+			).json()) as Array<{
+				name: string
+				color: string
+			}>
+		).reduce(
+			(
+				p: Record<string, string>,
+				{ name, color },
+			) => ((p[name] = color), p),
+			{},
+		),
 	)
 
 	const palette = interner.dumpValues()
@@ -35,6 +46,7 @@ export default async function Page() {
 							: interner.lookup(lang) ?? 0,
 					count: 1,
 				}))}
+				maxLevel={palette.length - 1}
 				theme={{
 					light: palette,
 					dark: palette,

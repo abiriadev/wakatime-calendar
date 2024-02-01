@@ -8,6 +8,7 @@ export class Interner {
 			throw new Error(`duplicated key: ${key}`)
 		this.#hash.set(key, this.#values.length)
 		this.#values.push(value)
+		console.log(value)
 	}
 
 	bulkInsert(kvset: Record<string, string>) {
