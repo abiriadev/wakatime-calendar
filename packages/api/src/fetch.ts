@@ -28,28 +28,28 @@ export const fetchData = async (
 	start: Date,
 	end: Date,
 ): Promise<Array<DayStatistics>> =>
-	ky
-		.get(
-			'https://wakatime.com/api/v1/users/current/summaries',
-			{
-				searchParams: {
-					start: start
-						.toISOString()
-						.split('T')[0]!,
-					end: end.toISOString().split('T')[0]!,
+	(
+		await ky
+			.get(
+				'https://wakatime.com/api/v1/users/current/summaries',
+				{
+					searchParams: {
+						start: start
+							.toISOString()
+							.split('T')[0]!,
+						end: end
+							.toISOString()
+							.split('T')[0]!,
+					},
+					headers: {
+						Authorization: `Basic ${btoa(key + ':')}`,
+					},
+					timeout: false,
 				},
-				headers: {
-					Authorization: `Basic ${btoa(key + ':')}`,
-				},
-				timeout: false,
-			},
-		)
-		.json<RawData>()
-		.then(d =>
-			d.data.map(
-				({ languages, range: { date } }) => ({
-					date,
-					lang: languages[0]?.name ?? null,
-				}),
-			),
-		)
+			)
+			.json<RawData>()
+	).data.map(({ languages, range: { date } }) => ({
+		date,
+		topLang: languages[0]?.name ?? null,
+		langs: languages,
+	}))
